@@ -607,6 +607,7 @@ struct sev_data_snp_launch_start {
 	u32 ma_en:1;				/* In */
 	u32 imi_en:1;				/* In */
 	u32 rsvd:30;
+	u32 rsvd2;
 	u8 gosvw[16];				/* In */
 } __packed;
 
