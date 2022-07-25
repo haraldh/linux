@@ -2242,17 +2242,18 @@ static int snp_launch_finish(struct kvm *kvm, struct kvm_sev_cmd *argp)
 
 		data->id_block_en = 1;
 		data->id_block_paddr = __sme_pa(id_block);
-	}
 
-	if (params.auth_key_en) {
 		id_auth = psp_copy_user_blob(params.id_auth_uaddr, KVM_SEV_SNP_ID_AUTH_SIZE);
 		if (IS_ERR(id_auth)) {
 			ret = PTR_ERR(id_auth);
 			goto e_free_id_block;
 		}
 
-		data->auth_key_en = 1;
 		data->id_auth_paddr = __sme_pa(id_auth);
+
+		if (params.auth_key_en) {
+			data->auth_key_en = 1;
+		}
 	}
 
 	data->gctx_paddr = __psp_pa(sev->snp_context);
